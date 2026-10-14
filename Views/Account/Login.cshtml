@@ -1,0 +1,29 @@
+@model LoginViewModel
+@{
+    ViewData["Title"] = "Masuk";
+}
+<section class="auth-shell">
+    <div class="auth-intro">
+        <p class="eyebrow">Access Desk</p>
+        <h1>Masuk dengan tenang.</h1>
+        <p>Halaman MVC dan endpoint API memakai sesi autentikasi yang sama.</p>
+    </div>
+    <div class="auth-card">
+        <h2>Masuk ke akun</h2>
+        <p>Gunakan kredensial demo untuk melanjutkan.</p>
+        @using (Html.BeginForm("Login", "Account", FormMethod.Post))
+        {
+            @Html.AntiForgeryToken()
+            @Html.ValidationSummary()
+            @Html.HiddenFor(model => model.ReturnUrl)
+            @Html.LabelFor(model => model.Username)
+            @Html.TextBoxFor(model => model.Username, new { autocomplete = "username", autofocus = "autofocus" })
+            @Html.LabelFor(model => model.Password)
+            @Html.PasswordFor(model => model.Password, new { autocomplete = "current-password" })
+            @Html.CheckBoxFor(model => model.RememberMe)
+            <span>Ingat saya di perangkat ini</span>
+            <button class="button button-primary" type="submit">Masuk</button>
+        }
+        <p class="demo-note">Demo: admin / Admin123!</p>
+    </div>
+</section>

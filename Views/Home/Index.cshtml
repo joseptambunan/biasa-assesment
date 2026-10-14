@@ -1,0 +1,12 @@
+@{
+    ViewData["Title"] = "Dashboard";
+}
+<section class="dashboard-header">
+    <p class="eyebrow">Dashboard</p>
+    <h1>Halo, @User.FindFirst("display_name")?.Value.</h1>
+    <p>Sesi Anda aktif dan halaman ini dilindungi oleh cookie authentication.</p>
+</section>
+<section class="info-card">
+    <h2>API tersedia</h2>
+    <p>POST /api/auth/login, GET /api/auth/me, dan POST /api/auth/logout.</p>
+</section>
