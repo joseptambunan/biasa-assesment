@@ -21,4 +21,5 @@ public sealed class AppDbContext : DbContext
 
     public DbSet<UserGroup> UserGroup => Set<UserGroup>();
     public DbSet<Kategori> Kategori => Set<Kategori>();
+    public DbSet<Group> Group => Set<Group>();
 }

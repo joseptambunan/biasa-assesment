@@ -3,7 +3,7 @@
 Satu project ASP.NET Core MVC dengan halaman login dan API login yang berbagi cookie authentication.
 
 ## Running
-
+    
     dotnet run --project AspNetMvcLogin
     dotnet add package Microsoft.AspNetCore.Authentication.JwtBearer --version 8.0.21
     dotnet user-secrets init
@@ -15,6 +15,7 @@ Satu project ASP.NET Core MVC dengan halaman login dan API login yang berbagi co
     dotnet add package Microsoft.EntityFrameworkCore.Design --version 8.0.21
     dotnet tool run dotnet-ef migrations add AddKategoriTable
     dotnet tool run dotnet-ef migrations add AddUserGroupTable
+    dotnet tool run dotnet-ef migrations add AddGroupTable
 
 Buka http://localhost:5080/Account/Login.
 
