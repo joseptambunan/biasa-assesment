@@ -13,5 +13,5 @@ public sealed class Kategori
     [Required]
     [MaxLength(100)]
     [Column("name")]
-    public string name { get; set; } = string.Empty;
+    public string Name { get; set; } = string.Empty;
 }

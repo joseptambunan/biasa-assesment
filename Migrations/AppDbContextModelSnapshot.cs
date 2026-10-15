@@ -21,46 +21,6 @@ namespace AspNetMvcLogin.Migrations
 
             MySqlModelBuilderExtensions.AutoIncrementColumns(modelBuilder);
 
-            modelBuilder.Entity("AspNetMvcLogin.Models.Group", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasColumnName("id");
-
-                    MySqlPropertyBuilderExtensions.UseMySqlIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasMaxLength(100)
-                        .HasColumnType("varchar(100)")
-                        .HasColumnName("name");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("tbl_group");
-                });
-
-            modelBuilder.Entity("AspNetMvcLogin.Models.Kategori", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasColumnName("id");
-
-                    MySqlPropertyBuilderExtensions.UseMySqlIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<string>("name")
-                        .IsRequired()
-                        .HasMaxLength(100)
-                        .HasColumnType("varchar(100)")
-                        .HasColumnName("name");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("tbl_kategori");
-                });
-
             modelBuilder.Entity("AspNetMvcLogin.Models.User", b =>
                 {
                     b.Property<int>("Id")
@@ -87,31 +47,7 @@ namespace AspNetMvcLogin.Migrations
                     b.HasIndex("Username")
                         .IsUnique();
 
-                    b.ToTable("tbl_user");
-                });
-
-            modelBuilder.Entity("AspNetMvcLogin.Models.UserGroup", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasColumnName("id");
-
-                    MySqlPropertyBuilderExtensions.UseMySqlIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<int>("GroupId")
-                        .HasMaxLength(500)
-                        .HasColumnType("int")
-                        .HasColumnName("group_id");
-
-                    b.Property<int>("UserId")
-                        .HasMaxLength(100)
-                        .HasColumnType("int")
-                        .HasColumnName("user_id");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("tbl_user_group");
+                    b.ToTable("tbl_user", (string)null);
                 });
 #pragma warning restore 612, 618
         }

@@ -15,4 +15,5 @@ public sealed class Group
     [Column("name")]
     public string Name { get; set; } = string.Empty;
 
+    public UserGroup UserGroup { get; set; } = null!;
 }

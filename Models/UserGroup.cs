@@ -20,4 +20,8 @@ public sealed class UserGroup
     [MaxLength(500)]
     [Column("group_id")]
     public int GroupId { get; set; } 
+
+    public User User { get; set; } = null!;
+
+    public Group Group { get; set; } = null!;
 }

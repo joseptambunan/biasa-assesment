@@ -13,10 +13,13 @@ Satu project ASP.NET Core MVC dengan halaman login dan API login yang berbagi co
     dotnet tool install --global dotnet-ef
     dotnet add package Pomelo.EntityFrameworkCore.MySql --version 8.0.3
     dotnet add package Microsoft.EntityFrameworkCore.Design --version 8.0.21
+    dotnet tool run dotnet-ef migrations add AddUserTable
     dotnet tool run dotnet-ef migrations add AddKategoriTable
     dotnet tool run dotnet-ef migrations add AddUserGroupTable
     dotnet tool run dotnet-ef migrations add AddGroupTable
-
+    dotnet tool run dotnet-ef migrations add AddProductTable
+    dotnet tool run dotnet-ef migrations add AddProductStockTable
+    
 Buka http://localhost:5080/Account/Login.
 
 Kredensial demo:

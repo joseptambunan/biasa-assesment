@@ -20,4 +20,6 @@ public sealed class User
     [MaxLength(500)]
     [Column("password")]
     public string PasswordHash { get; set; } = string.Empty;
+
+    public UserGroup UserGroup { get; set; } = null!;
 }
