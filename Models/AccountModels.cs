@@ -31,3 +31,16 @@ public sealed class ApiLoginRequest
 }
 
 public sealed record CurrentUserResponse(string Id, string Username, string DisplayName, string Role);
+
+public sealed class ApiKategoriRequest {
+    [Required]
+    public string Name { get; set; } = string.Empty;
+}
+
+public sealed class ApiProductRequest {
+    [Required]
+    public string Name { get; set; } = string.Empty;
+
+    [Required]
+    public int kategori_id { get; set; } 
+}

@@ -11,8 +11,8 @@ public sealed class AppDbContext : DbContext
     }
 
     public DbSet<User> Users => Set<User>();
-    public DbSet<Kategori> Kategori => Set<Kategori>();
     public DbSet<Group> Group => Set<Group>();
+    public DbSet<Kategori> Kategori => Set<Kategori>();
     public DbSet<UserGroup> UserGroups => Set<UserGroup>();
     public DbSet<Product> Products => Set<Product>();
     public DbSet<ProductStocks> ProductStocks => Set<ProductStocks>();
