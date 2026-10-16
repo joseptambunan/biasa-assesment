@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Authentication.JwtBearer;
 using AspNetMvcLogin.Models;
 using AspNetMvcLogin.Data;
 using Microsoft.EntityFrameworkCore;
+using AspNetMvcLogin.Services;
 
 namespace AspNetMvcLogin.Controllers;
 
@@ -13,10 +14,12 @@ namespace AspNetMvcLogin.Controllers;
 public sealed class ProductController : Controller
 {
     private readonly AppDbContext _dbContext;
+    private readonly MasterProductService _masterProductService;
 
-    public ProductController(AppDbContext dbContext)
+    public ProductController(AppDbContext dbContext, MasterProductService masterProductService)
     {
         _dbContext = dbContext;
+        _masterProductService = masterProductService;
     }
 
     public IActionResult Index() => View();
@@ -28,48 +31,36 @@ public sealed class ProductController : Controller
     [HttpPost("kategori/submit")]
     public IActionResult SubmitKategori([FromBody] ApiKategoriRequest? request)
     {
-        try {
-            if (request is null)
-            {
-                return BadRequest(new
-                {
-                    message = "Request body wajib diisi."
-                });
-            }
 
-            var requestKategori = new Kategori
-            {
-                Name = request.Name
-            };
-
-            
-            _dbContext.Kategori.Add(requestKategori);
-            _dbContext.SaveChanges();
-
+        var kategori = _masterProductService.MasterKategori(request);
+        if ( kategori != "Error"){
             return Ok(new
             {
+                code = 200,
                 message = "Kategori berhasil disimpan.",
-                data = requestKategori
-            });
-        }catch (Exception  ex){
-            Console.WriteLine(ex.ToString());
-
-            return StatusCode(500, new
-            {
-                message = "Gagal menyimpan kategori ke database"
+                data = kategori
             });
         }
+
+        return StatusCode(500, new
+        {
+            code = 500,
+            message = "Gagal menyimpan kategori ke database"
+        });
     }
 
     [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
     [HttpGet("kategori")]
     public IActionResult GetAllKategori()
     {
-        var kategori = _dbContext.Kategori
-        .AsNoTracking()
-        .OrderBy(x => x.Name);
+        var kategori = _masterProductService.GetAllKategori();
+        return Ok(new
+        {
+            code = 200,
+            message = "Kategori berhasil disimpan.",
+            data = kategori
+        });
 
-        return Ok(kategori);
     }
 
     [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]

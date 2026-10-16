@@ -62,6 +62,8 @@ builder.Services.AddDbContext<AppDbContext>(options =>
 {
     options.UseMySql(connectionString, serverVersion);
 });
+builder.Services.AddScoped<MasterProductService>();
+
 
 var app = builder.Build();
 
