@@ -43,4 +43,7 @@ public sealed class ApiProductRequest {
 
     [Required]
     public int kategori_id { get; set; } 
+
+    [Required]
+    public int price { get; set; } 
 }

@@ -18,4 +18,12 @@ public sealed class Product
     [Required]
     [Column("kategori_id")]
     public int Kategori_id { get; set; } 
+
+    [Required]
+    [Column("price")]
+    public int Price { get; set; } 
+
+    [Required]
+    [Column("stock")]
+    public int stock { get; set; } 
 }

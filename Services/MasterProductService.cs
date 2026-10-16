@@ -42,4 +42,54 @@ public sealed class MasterProductService
             throw;
         }
     }
+
+    public string SubmitProduct(ApiProductRequest? request){
+        try {
+            
+            var requestProduct = new Product
+            {
+                Name = request.Name,
+                Kategori_id = request.kategori_id,
+                Price = request.price
+            };
+
+            
+            _dbContext.Products.Add(requestProduct);
+            _dbContext.SaveChanges();
+
+            return requestProduct.Name;
+        }catch (Exception  ex){
+            Console.WriteLine(ex.ToString());
+            return "Error";
+        }
+    }
+
+    public List<Product> GetProductAll(){
+        try {
+            var product = _dbContext.Products
+            .AsNoTracking()
+            .OrderBy(x => x.Name)
+            .ToList();
+
+            return product;
+
+        }catch (Exception  ex){
+            Console.WriteLine(ex.ToString());
+            throw;
+        }
+    }
+
+    public Product GetProductById(int product_id){
+        try {
+            var product = _dbContext.Products
+            .AsNoTracking()
+            .FirstOrDefault(x => x.Id == product_id);
+
+            return product;
+
+        }catch (Exception  ex){
+            Console.WriteLine(ex.ToString());
+            throw;
+        }
+    }
 }

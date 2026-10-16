@@ -80,6 +80,14 @@ namespace AspNetMvcLogin.Migrations
                         .HasColumnType("varchar(100)")
                         .HasColumnName("name");
 
+                    b.Property<int>("price")
+                        .HasColumnType("int")
+                        .HasColumnName("price");
+
+                    b.Property<int>("stock")
+                        .HasColumnType("int")
+                        .HasColumnName("stock");
+
                     b.HasKey("Id");
 
                     b.HasIndex("Kategori_id");

@@ -67,67 +67,44 @@ public sealed class ProductController : Controller
     [HttpPost("submit")]
     public IActionResult SubmitProduct([FromBody] ApiProductRequest? request)
     {
-        try {
-            if (request is null)
-            {
-                return BadRequest(new
-                {
-                    message = "Request body wajib diisi."
-                });
-            }
+        var product = _masterProductService.SubmitProduct(request);
+        return Ok(new
+        {
+            code = 200,
+            message = "Product berhasil disimpan.",
+            data = product
+        });
+    }
 
-            var requestProduct = new Product
-            {
-                Name = request.Name,
-                Kategori_id = request.kategori_id
-            };
+    [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
+    [HttpGet("all")]
+    public IActionResult GetAllProduct()
+    {
+        var product = _masterProductService.GetProductAll();
+        return Ok(new
+        {
+            code = 200,
+            message = "Product berhasil disimpan.",
+            data = product
+        });
 
-            
-            _dbContext.Products.Add(requestProduct);
-            _dbContext.SaveChanges();
-
-            return Ok(new
-            {
-                message = "Kategori berhasil disimpan.",
-                data = requestProduct
-            });
-        }catch (Exception  ex){
-            Console.WriteLine(ex.ToString());
-
-            return StatusCode(500, new
-            {
-                message = "Gagal menyimpan kategori ke database"
-            });
-        }
     }
 
     [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
     [HttpGet("{product_id:int}")]
     public IActionResult GetProductById(int product_id)
     {
-        try {
-            var product = _dbContext.Products
-            .AsNoTracking()
-            .FirstOrDefault(x => x.Id == product_id);
-
-            if (product is null)
-            {
-                return NotFound(new
-                {
-                    StatusCode = 200,
-                    message = "Product tidak ditemukan."
-                });
-            }
-
-            return Ok(product);
-
-        }catch (Exception  ex){
-            Console.WriteLine(ex.ToString());
-
-            return StatusCode(500, new
-            {
-                message = "Gagal menampilkan database"
+        var product = _masterProductService.GetProductById(product_id);
+        if ( product is null ){
+            return NotFound(new{ 
+                message = "Data tidak ditemukan" 
             });
         }
+        return Ok(new
+        {
+            code = 200,
+            message = "Product berhasil disimpan.",
+            data = product
+        });
     }
 }
