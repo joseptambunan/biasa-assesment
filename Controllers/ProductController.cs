@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using AspNetMvcLogin.Models;
 using AspNetMvcLogin.Data;
+using Microsoft.EntityFrameworkCore;
 
 namespace AspNetMvcLogin.Controllers;
 
@@ -61,6 +62,17 @@ public sealed class ProductController : Controller
     }
 
     [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
+    [HttpGet("kategori")]
+    public IActionResult GetAllKategori()
+    {
+        var kategori = _dbContext.Kategori
+        .AsNoTracking()
+        .OrderBy(x => x.Name);
+
+        return Ok(kategori);
+    }
+
+    [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
     [HttpPost("submit")]
     public IActionResult SubmitProduct([FromBody] ApiProductRequest? request)
     {
@@ -94,6 +106,36 @@ public sealed class ProductController : Controller
             return StatusCode(500, new
             {
                 message = "Gagal menyimpan kategori ke database"
+            });
+        }
+    }
+
+    [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
+    [HttpGet("{product_id:int}")]
+    public IActionResult GetProductById(int product_id)
+    {
+        try {
+            var product = _dbContext.Products
+            .AsNoTracking()
+            .FirstOrDefault(x => x.Id == product_id);
+
+            if (product is null)
+            {
+                return NotFound(new
+                {
+                    StatusCode = 200,
+                    message = "Product tidak ditemukan."
+                });
+            }
+
+            return Ok(product);
+
+        }catch (Exception  ex){
+            Console.WriteLine(ex.ToString());
+
+            return StatusCode(500, new
+            {
+                message = "Gagal menampilkan database"
             });
         }
     }
