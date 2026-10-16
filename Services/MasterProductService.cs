@@ -92,4 +92,28 @@ public sealed class MasterProductService
             throw;
         }
     }
+
+    public Product UpdateProduct(ApiProductRequest? request){
+        try{
+            var requestProduct = new Product
+            {
+                Name = request.Name,
+                Kategori_id = request.kategori_id,
+                Price = request.price
+            };
+            var product = _dbContext.Products.Find(request.product_id);
+            product.Name = request.Name;
+            product.Kategori_id = request.kategori_id;
+            product.Price = request.price;
+            _dbContext.SaveChanges();
+
+            return requestProduct;
+        
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine(ex.ToString());
+            throw;
+        }
+    }
 }

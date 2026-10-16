@@ -100,6 +100,26 @@ public sealed class ProductController : Controller
                 message = "Data tidak ditemukan" 
             });
         }
+
+        return Ok(new
+        {
+            code = 200,
+            message = "Product berhasil disimpan.",
+            data = product
+        });
+    }
+
+    [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
+    [HttpPut("update")]
+    public IActionResult UpdateProductById([FromBody] ApiProductRequest? request)
+    {
+        var product = _masterProductService.UpdateProduct(request);
+        if ( product is null ){
+            return NotFound(new{ 
+                message = "Data tidak ditemukan" 
+            });
+        }
+        
         return Ok(new
         {
             code = 200,
