@@ -127,4 +127,48 @@ public sealed class ProductController : Controller
             data = product
         });
     }
+
+    [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
+    [HttpPost("kategori/submit")]
+    public IActionResult SubmitKategori([FromBody] ApiKategoriRequest? request)
+    {
+
+        var kategori = _masterProductService.MasterKategori(request);
+        if ( kategori != "Error"){
+            return Ok(new
+            {
+                code = 200,
+                message = "Kategori berhasil disimpan.",
+                data = kategori
+            });
+        }
+
+        return StatusCode(500, new
+        {
+            code = 500,
+            message = "Gagal menyimpan kategori ke database"
+        });
+    }
+
+    [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
+    [HttpPost("search")]
+    public IActionResult SearchProduct([FromBody] ApiKategoriRequest? request)
+    {
+
+        var kategori = _masterProductService.MasterKategori(request);
+        if ( kategori != "Error"){
+            return Ok(new
+            {
+                code = 200,
+                message = "Kategori berhasil disimpan.",
+                data = kategori
+            });
+        }
+
+        return StatusCode(500, new
+        {
+            code = 500,
+            message = "Gagal menyimpan kategori ke database"
+        });
+    }
 }
