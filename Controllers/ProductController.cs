@@ -132,24 +132,16 @@ public sealed class ProductController : Controller
 
     
     [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
-    [HttpPost("search")]
-    public IActionResult SearchProduct([FromBody] ApiKategoriRequest? request)
+    [HttpGet("search")]
+    public IActionResult SearchProduct([FromBody] ApiSearchRequest? request)
     {
 
-        var kategori = _masterProductService.MasterKategori(request);
-        if ( kategori != "Error"){
-            return Ok(new
-            {
-                code = 200,
-                message = "Kategori berhasil disimpan.",
-                data = kategori
-            });
-        }
-
-        return StatusCode(500, new
+        var product = _masterProductService.SearchProduct(request.kategori, request.product);
+        return Ok(new
         {
-            code = 500,
-            message = "Gagal menyimpan kategori ke database"
+            code = 200,
+            message = "Product berhasil disimpan.",
+            data = product
         });
     }
 

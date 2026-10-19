@@ -116,4 +116,34 @@ public sealed class MasterProductService
             throw;
         }
     }
+
+    public List<Product> SearchProduct(int? kategori_id, string product_name){
+        try {
+
+            if ( kategori_id.HasValue){
+                var product = _dbContext.Products
+                .AsNoTracking()
+                .Where(x =>
+                    x.Kategori_id == kategori_id.Value ||
+                    EF.Functions.Like(x.Name, $"%{product_name}%")
+                )
+                .ToList();
+                return product;
+            }else{
+                var product = _dbContext.Products
+                .AsNoTracking()
+                .Where(x =>
+                    EF.Functions.Like(x.Name, $"%{product_name}%")
+                )
+                .ToList();
+                        
+                return product;    
+            }
+            
+
+        }catch (Exception  ex){
+            Console.WriteLine(ex.ToString());
+            throw;
+        }
+    }
 }

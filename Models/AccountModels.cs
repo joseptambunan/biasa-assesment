@@ -52,7 +52,7 @@ public sealed class ApiProductRequest {
 
 
 public sealed class ApiSearchRequest {
-    public string kategori { get; set; } = string.Empty;
+    public int? kategori { get; set; }
     public string product { get; set; } = string.Empty;
 }
 
