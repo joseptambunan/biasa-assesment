@@ -15,11 +15,13 @@ public sealed class ProductController : Controller
 {
     private readonly AppDbContext _dbContext;
     private readonly MasterProductService _masterProductService;
+    private readonly StockProductService _stockProductService;
 
-    public ProductController(AppDbContext dbContext, MasterProductService masterProductService)
+    public ProductController(AppDbContext dbContext, MasterProductService masterProductService, StockProductService stockProductService )
     {
         _dbContext = dbContext;
         _masterProductService = masterProductService;
+        _stockProductService = stockProductService;
     }
 
     public IActionResult Index() => View();
@@ -128,9 +130,10 @@ public sealed class ProductController : Controller
         });
     }
 
+    
     [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
-    [HttpPost("kategori/submit")]
-    public IActionResult SubmitKategori([FromBody] ApiKategoriRequest? request)
+    [HttpPost("search")]
+    public IActionResult SearchProduct([FromBody] ApiKategoriRequest? request)
     {
 
         var kategori = _masterProductService.MasterKategori(request);
@@ -151,24 +154,24 @@ public sealed class ProductController : Controller
     }
 
     [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
-    [HttpPost("search")]
-    public IActionResult SearchProduct([FromBody] ApiKategoriRequest? request)
+    [HttpPost("stock")]
+    public IActionResult SubmitStock([FromBody] ApiUpdateStock? request)
     {
 
-        var kategori = _masterProductService.MasterKategori(request);
-        if ( kategori != "Error"){
+        var stock = _stockProductService.UpdateStock(request);
+        if ( stock != "Error"){
             return Ok(new
             {
                 code = 200,
                 message = "Kategori berhasil disimpan.",
-                data = kategori
+                data = stock
             });
         }
 
         return StatusCode(500, new
         {
             code = 500,
-            message = "Gagal menyimpan kategori ke database"
+            message = "Gagal menyimpan stock ke database"
         });
     }
 }

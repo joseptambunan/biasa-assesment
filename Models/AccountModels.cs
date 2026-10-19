@@ -55,3 +55,8 @@ public sealed class ApiSearchRequest {
     public string kategori { get; set; } = string.Empty;
     public string product { get; set; } = string.Empty;
 }
+
+public sealed class ApiUpdateStock {
+    public int stock { get; set; } 
+    public int product_id { get; set; } 
+}

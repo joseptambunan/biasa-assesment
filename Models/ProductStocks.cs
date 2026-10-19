@@ -18,5 +18,5 @@ public sealed class ProductStocks
     [Required]
     [MaxLength(100)]
     [Column("stock")]
-    public int Stock { get; set; }
+    public int stock { get; set; }
 }

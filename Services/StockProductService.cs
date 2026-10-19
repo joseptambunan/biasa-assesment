@@ -13,6 +13,27 @@ public sealed class StockProductService
         _dbContext = dbContext;
     }
 
-    public string UpdateStock
+    public string UpdateStock(ApiUpdateStock? request){
+    	try {
+            var requestStock = new ProductStocks
+            {
+                ProductId = request.product_id,
+                stock = request.stock
+            };
+        
+            _dbContext.ProductStocks.Add(requestStock);
+            _dbContext.SaveChanges();
+
+            var product = _dbContext.Products.Find(request.product_id);
+            product.stock = request.stock;
+            _dbContext.SaveChanges();
+
+            return "SUCCESS";
+
+		}catch (Exception ex){
+            Console.WriteLine(ex.ToString());
+            return "Error";
+        }
+    }
 
 }
