@@ -64,11 +64,15 @@ public sealed class MasterProductService
         }
     }
 
-    public List<Product> GetProductAll(){
+    public List<Product> GetProductAll(int pageNumber = 1){
         try {
+
+            const int pageSize = 1;
             var product = _dbContext.Products
             .AsNoTracking()
             .OrderBy(x => x.Name)
+            .Skip((pageNumber - 1) * pageSize)
+            .Take(pageSize)
             .ToList();
 
             return product;
@@ -117,9 +121,9 @@ public sealed class MasterProductService
         }
     }
 
-    public List<Product> SearchProduct(int? kategori_id, string product_name){
+    public List<Product> SearchProduct(int? kategori_id, string product_name,int pageNumber = 1){
         try {
-
+            const int pageSize = 10;
             if ( kategori_id.HasValue){
                 var product = _dbContext.Products
                 .AsNoTracking()
@@ -127,16 +131,21 @@ public sealed class MasterProductService
                     x.Kategori_id == kategori_id.Value ||
                     EF.Functions.Like(x.Name, $"%{product_name}%")
                 )
+                .Skip((pageNumber - 1) * pageSize)
+                .Take(pageSize)
                 .ToList();
                 return product;
+
             }else{
                 var product = _dbContext.Products
                 .AsNoTracking()
                 .Where(x =>
                     EF.Functions.Like(x.Name, $"%{product_name}%")
                 )
+                .Skip((pageNumber - 1) * pageSize)
+                .Take(pageSize)
                 .ToList();
-                        
+
                 return product;    
             }
             

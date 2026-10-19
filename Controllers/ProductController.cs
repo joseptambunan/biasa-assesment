@@ -80,9 +80,9 @@ public sealed class ProductController : Controller
 
     [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
     [HttpGet("all")]
-    public IActionResult GetAllProduct()
+    public IActionResult GetAllProduct([FromQuery] ApiGetAll? request)
     {
-        var product = _masterProductService.GetProductAll();
+        var product = _masterProductService.GetProductAll(request.page);
         return Ok(new
         {
             code = 200,
@@ -136,7 +136,7 @@ public sealed class ProductController : Controller
     public IActionResult SearchProduct([FromBody] ApiSearchRequest? request)
     {
 
-        var product = _masterProductService.SearchProduct(request.kategori, request.product);
+        var product = _masterProductService.SearchProduct(request.kategori, request.product, request.page);
         return Ok(new
         {
             code = 200,
