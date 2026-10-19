@@ -1,3 +1,12 @@
+@{
+    var isAuthenticated = User.Identity?.IsAuthenticated == true;
+    var currentPath = Context.Request.Path.Value ?? "/";
+    var isProductPage = currentPath.StartsWith("/products", StringComparison.OrdinalIgnoreCase)
+        || currentPath.StartsWith("/api/product", StringComparison.OrdinalIgnoreCase);
+    var isCategoryPage = currentPath.StartsWith("/categories", StringComparison.OrdinalIgnoreCase);
+    var userName = User.Identity?.Name ?? "Pengguna";
+    var userInitial = userName.Length > 0 ? userName[0].ToString().ToUpperInvariant() : "U";
+}
 <!DOCTYPE html>
 <html lang="id">
 <head>
@@ -8,21 +17,72 @@
 </head>
 <body>
     <a class="skip-link" href="#main-content">Lewati ke konten</a>
-    <header class="site-header">
-        <div class="container header-inner">
-            <a class="brand" asp-controller="Home" asp-action="Index">Access Desk</a>
-            @if (User.Identity?.IsAuthenticated == true)
-            {
-                <form asp-controller="Account" asp-action="Logout" method="post">
-                    @Html.AntiForgeryToken()
-                    <button class="button button-ghost" type="submit">Keluar</button>
-                </form>
-            }
+
+    @if (isAuthenticated)
+    {
+        <div class="app-shell">
+            <aside class="sidebar" aria-label="Navigasi utama">
+                <div class="sidebar-brand-block">
+                    <a class="sidebar-brand" href="/">Access Desk</a>
+                    <span class="sidebar-caption">Ruang kerja persediaan</span>
+                </div>
+
+                <nav class="sidebar-nav">
+                    <a class="nav-item @(currentPath == "/" ? "is-active" : "")" href="/">
+                        <span class="nav-index" aria-hidden="true">01</span>
+                        <span>Beranda</span>
+                    </a>
+                    <a class="nav-item @(isCategoryPage ? "is-active" : "")" href="/categories">
+                        <span class="nav-index" aria-hidden="true">02</span>
+                        <span>Kategori</span>
+                    </a>
+                    <a class="nav-item @(isProductPage ? "is-active" : "")" href="/products">
+                        <span class="nav-index" aria-hidden="true">03</span>
+                        <span>Produk</span>
+                    </a>
+                </nav>
+
+                <div class="sidebar-footer">
+                    <div class="account-chip">
+                        <span class="account-mark" aria-hidden="true">@userInitial</span>
+                        <span>
+                            <strong>@userName</strong>
+                            <small>Sesi aktif</small>
+                        </span>
+                    </div>
+                    <form asp-controller="Account" asp-action="Logout" method="post">
+                        @Html.AntiForgeryToken()
+                        <button class="nav-item nav-button" type="submit">
+                            <span class="nav-index" aria-hidden="true">04</span>
+                            <span>Keluar</span>
+                        </button>
+                    </form>
+                </div>
+            </aside>
+
+            <div class="app-main">
+                <header class="app-topbar">
+                    <span class="topbar-label">Inventory workspace</span>
+                    <span class="topbar-user">@userName</span>
+                </header>
+                <main id="main-content" class="page-content app-content">
+                    @RenderBody()
+                </main>
+            </div>
         </div>
-    </header>
-    <main id="main-content" class="container page-content">
-        @RenderBody()
-    </main>
+    }
+    else
+    {
+        <header class="site-header">
+            <div class="container header-inner">
+                <a class="brand" asp-controller="Home" asp-action="Index">Access Desk</a>
+            </div>
+        </header>
+        <main id="main-content" class="container page-content">
+            @RenderBody()
+        </main>
+    }
+
     <footer class="site-footer">
         <div class="container">ASP.NET Core MVC / .NET 8</div>
     </footer>

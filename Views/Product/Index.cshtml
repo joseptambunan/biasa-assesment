@@ -1,0 +1,62 @@
+@{
+    ViewData["Title"] = "Produk";
+}
+
+<header class="page-heading">
+    <div>
+        <p class="eyebrow">Katalog</p>
+        <h1>Semua produk</h1>
+        <p class="page-lead">Pilih produk untuk melihat informasi umum dan riwayat stok.</p>
+    </div>
+    <span class="status-note">Contoh data</span>
+</header>
+
+<section class="table-card" aria-labelledby="all-products-title">
+    <div class="section-heading">
+        <div>
+            <p class="eyebrow">Daftar lengkap</p>
+            <h2 id="all-products-title">Produk tersedia</h2>
+        </div>
+        <span class="table-count">3 produk</span>
+    </div>
+    <div class="table-wrap">
+        <table class="data-table">
+            <thead>
+                <tr>
+                    <th scope="col">Kode barang</th>
+                    <th scope="col">Nama barang</th>
+                    <th scope="col">Kategori</th>
+                    <th scope="col">Harga</th>
+                    <th scope="col">Stok</th>
+                    <th scope="col"><span class="sr-only">Aksi</span></th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td><span class="code-label">PRD-001</span></td>
+                    <td><strong>Kopi Arabika 250 g</strong></td>
+                    <td>Minuman</td>
+                    <td>Rp 48.000</td>
+                    <td><span class="stock-value">24</span></td>
+                    <td><a class="table-link" href="/products/1">Lihat detail</a></td>
+                </tr>
+                <tr>
+                    <td><span class="code-label">PRD-002</span></td>
+                    <td><strong>Teh Hitam 100 g</strong></td>
+                    <td>Minuman</td>
+                    <td>Rp 32.000</td>
+                    <td><span class="stock-value">12</span></td>
+                    <td><a class="table-link" href="/products/2">Lihat detail</a></td>
+                </tr>
+                <tr>
+                    <td><span class="code-label">PRD-003</span></td>
+                    <td><strong>Gula Aren 500 g</strong></td>
+                    <td>Bahan baku</td>
+                    <td>Rp 39.000</td>
+                    <td><span class="stock-value stock-low">6</span></td>
+                    <td><a class="table-link" href="/products/3">Lihat detail</a></td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</section>

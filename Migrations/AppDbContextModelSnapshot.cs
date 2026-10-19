@@ -80,9 +80,14 @@ namespace AspNetMvcLogin.Migrations
                         .HasColumnType("varchar(100)")
                         .HasColumnName("name");
 
-                    b.Property<int>("price")
+                    b.Property<int>("Price")
                         .HasColumnType("int")
                         .HasColumnName("price");
+
+                    b.Property<string>("ProductCode")
+                        .IsRequired()
+                        .HasColumnType("longtext")
+                        .HasColumnName("product_code");
 
                     b.Property<int>("stock")
                         .HasColumnType("int")
@@ -108,7 +113,7 @@ namespace AspNetMvcLogin.Migrations
                         .HasColumnType("int")
                         .HasColumnName("product_id");
 
-                    b.Property<int>("Stock")
+                    b.Property<int>("stock")
                         .HasMaxLength(100)
                         .HasColumnType("int")
                         .HasColumnName("stock");

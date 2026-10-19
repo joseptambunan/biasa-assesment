@@ -19,7 +19,7 @@ Satu project ASP.NET Core MVC dengan halaman login dan API login yang berbagi co
     dotnet tool run dotnet-ef migrations add AddUserGroupTable
     dotnet tool run dotnet-ef migrations add AddProductTable
     dotnet tool run dotnet-ef migrations add AddProductStockTable
-    
+    dotnet tool run dotnet-ef migrations add AlterProductAddKodeBarang
 Buka http://localhost:5080/Account/Login.
 
 Kredensial demo:

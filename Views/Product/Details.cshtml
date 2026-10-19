@@ -1,0 +1,147 @@
+@model int
+@{
+    ViewData["Title"] = "Detail produk";
+    var productId = Model > 0 ? Model : 1;
+}
+
+<div class="detail-back-row">
+    <a class="back-link" href="/products">Kembali ke semua produk</a>
+</div>
+
+<header class="page-heading detail-heading">
+    <div>
+        <p class="eyebrow">Detail produk / PRD-@productId.ToString("000")</p>
+        <h1>Kopi Arabika 250 g</h1>
+        <p class="page-lead">Informasi umum dan catatan perubahan stok produk.</p>
+    </div>
+    <button class="button button-primary" type="button" data-open-stock-modal>Update stok</button>
+</header>
+
+<div class="detail-grid">
+    <section class="detail-card" aria-labelledby="product-summary-title">
+        <div class="section-heading">
+            <div>
+                <p class="eyebrow">Ringkasan</p>
+                <h2 id="product-summary-title">Data umum produk</h2>
+            </div>
+            <span class="status-note">Aktif</span>
+        </div>
+        <div class="summary-table-wrap">
+            <table class="summary-table">
+                <tbody>
+                    <tr>
+                        <th scope="row">Kode barang</th>
+                        <td>PRD-@productId.ToString("000")</td>
+                    </tr>
+                    <tr>
+                        <th scope="row">Nama barang</th>
+                        <td>Kopi Arabika 250 g</td>
+                    </tr>
+                    <tr>
+                        <th scope="row">Kategori</th>
+                        <td>Minuman</td>
+                    </tr>
+                    <tr>
+                        <th scope="row">Stok</th>
+                        <td><strong id="current-stock">24</strong> unit</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </section>
+
+    <section class="detail-card" aria-labelledby="stock-history-title">
+        <div class="section-heading">
+            <div>
+                <p class="eyebrow">Pergerakan</p>
+                <h2 id="stock-history-title">Data stok barang</h2>
+            </div>
+            <span class="table-count">3 catatan</span>
+        </div>
+        <div class="table-wrap">
+            <table class="data-table compact-table">
+                <thead>
+                    <tr>
+                        <th scope="col">Tanggal</th>
+                        <th scope="col">Perubahan</th>
+                        <th scope="col">Stok akhir</th>
+                        <th scope="col">Catatan</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>19 Okt 2026</td>
+                        <td><span class="change-pill change-in">+12</span></td>
+                        <td>24</td>
+                        <td>Penerimaan barang</td>
+                    </tr>
+                    <tr>
+                        <td>15 Okt 2026</td>
+                        <td><span class="change-pill change-out">-4</span></td>
+                        <td>12</td>
+                        <td>Penjualan</td>
+                    </tr>
+                    <tr>
+                        <td>10 Okt 2026</td>
+                        <td><span class="change-pill change-in">+16</span></td>
+                        <td>16</td>
+                        <td>Stok awal</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </section>
+</div>
+
+<dialog id="stock-modal" class="stock-dialog" aria-labelledby="stock-modal-title">
+    <div class="dialog-panel">
+        <div class="dialog-header">
+            <div>
+                <p class="eyebrow">Perbarui produk</p>
+                <h2 id="stock-modal-title">Update stok</h2>
+            </div>
+            <button class="icon-button" type="button" data-close-stock-modal aria-label="Tutup modal">&times;</button>
+        </div>
+        <p class="dialog-lead">Masukkan jumlah stok terbaru untuk PRD-@productId.ToString("000").</p>
+        <form id="stock-form" class="stock-form">
+            <div class="form-field">
+                <label for="latest-stock">Stok terbaru</label>
+                <input id="latest-stock" name="stock" type="number" min="0" value="24" required />
+            </div>
+            <div class="dialog-actions">
+                <button class="button button-secondary" type="button" data-close-stock-modal>Batal</button>
+                <button class="button button-primary" type="submit">Simpan stok</button>
+            </div>
+            <p id="stock-form-status" class="form-status" role="status" aria-live="polite"></p>
+        </form>
+    </div>
+</dialog>
+
+@section Scripts {
+    <script>
+        (() => {
+            const modal = document.querySelector('#stock-modal');
+            const form = document.querySelector('#stock-form');
+            const currentStock = document.querySelector('#current-stock');
+            const status = document.querySelector('#stock-form-status');
+
+            if (!modal || !form || !currentStock || !status) return;
+
+            document.querySelectorAll('[data-open-stock-modal]').forEach((button) => {
+                button.addEventListener('click', () => modal.showModal());
+            });
+
+            document.querySelectorAll('[data-close-stock-modal]').forEach((button) => {
+                button.addEventListener('click', () => modal.close());
+            });
+
+            form.addEventListener('submit', (event) => {
+                event.preventDefault();
+                const input = form.elements.stock;
+                currentStock.textContent = input.value;
+                status.textContent = 'Stok tampilan diperbarui. Hubungkan form ini ke API untuk menyimpan ke database.';
+                modal.close();
+            });
+        })();
+    </script>
+}

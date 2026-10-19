@@ -31,6 +31,13 @@ public sealed class MasterProductService
         }
 	}
 
+    public string GenerateUniqCode(string kategori){
+        var header = kategori.Substring(2).ToUpper();
+        var rand = new Random();
+        var uid = rand.Next(100, 999);
+        return header + "" + uid;
+    }
+
     public List<Kategori> GetAllKategori(){
         try{
             return _dbContext.Kategori
@@ -46,11 +53,18 @@ public sealed class MasterProductService
     public string SubmitProduct(ApiProductRequest? request){
         try {
             
+            var kategori = _dbContext.Kategori
+            .AsNoTracking()
+            .FirstOrDefault(x => x.Id == request.kategori_id);
+
+            var uniqcode = this.GenerateUniqCode(kategori.Name);
+
             var requestProduct = new Product
             {
                 Name = request.Name,
                 Kategori_id = request.kategori_id,
-                Price = request.price
+                Price = request.price,
+                ProductCode = uniqcode
             };
 
             

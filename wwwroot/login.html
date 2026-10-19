@@ -1,0 +1,44 @@
+<!doctype html>
+<html lang="id">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Masuk - Access Desk</title>
+    <link rel="stylesheet" href="/css/site.css">
+</head>
+<body>
+    <a class="skip-link" href="#main-content">Lewati ke konten</a>
+    <header class="site-header">
+        <div class="container header-inner">
+            <a class="brand" href="index.html">Access Desk</a>
+        </div>
+    </header>
+
+    <main id="main-content" class="container page-content">
+        <section class="auth-shell">
+            <div class="auth-intro">
+                <p class="eyebrow">Access Desk / Sign in</p>
+                <h1>Kelola persediaan dengan jelas.</h1>
+                <p>Masuk untuk melihat produk, kategori, dan perubahan stok dalam satu ruang kerja.</p>
+            </div>
+            <div class="auth-card">
+                <h2>Masuk ke akun</h2>
+                <p class="auth-card-lead">Gunakan akun yang sudah tersedia di environment ini.</p>
+                
+                <div class="form-field">
+                    <label for="username">Username</label>
+                    <input id="username" name="username" type="text" autocomplete="username" autofocus required>
+                </div>
+                <div class="form-field">
+                    <label for="password">Password</label>
+                    <input id="password" name="password" type="password" autocomplete="current-password" required>
+                </div>
+                <button class="button button-primary button-wide" type="button" onclick="login()">Masuk</button>
+                
+            </div>
+        </section>
+    </main>
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+    <script src="/js/auth.js"></script>
+</body>
+</html>

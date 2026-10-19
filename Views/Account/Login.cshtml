@@ -4,26 +4,33 @@
 }
 <section class="auth-shell">
     <div class="auth-intro">
-        <p class="eyebrow">Access Desk</p>
-        <h1>Masuk dengan tenang.</h1>
-        <p>Halaman MVC dan endpoint API memakai sesi autentikasi yang sama.</p>
+        <p class="eyebrow">Access Desk / Sign in</p>
+        <h1>Kelola persediaan dengan jelas.</h1>
+        <p>Masuk untuk melihat produk, kategori, dan perubahan stok dalam satu ruang kerja.</p>
     </div>
     <div class="auth-card">
         <h2>Masuk ke akun</h2>
-        <p>Gunakan kredensial demo untuk melanjutkan.</p>
+        <p class="auth-card-lead">Gunakan akun yang sudah tersedia di environment ini.</p>
         @using (Html.BeginForm("Login", "Account", FormMethod.Post))
         {
             @Html.AntiForgeryToken()
-            @Html.ValidationSummary()
+            @Html.ValidationSummary(false, "", new { @class = "form-alert" })
             @Html.HiddenFor(model => model.ReturnUrl)
-            @Html.LabelFor(model => model.Username)
-            @Html.TextBoxFor(model => model.Username, new { autocomplete = "username", autofocus = "autofocus" })
-            @Html.LabelFor(model => model.Password)
-            @Html.PasswordFor(model => model.Password, new { autocomplete = "current-password" })
-            @Html.CheckBoxFor(model => model.RememberMe)
-            <span>Ingat saya di perangkat ini</span>
-            <button class="button button-primary" type="submit">Masuk</button>
+            <div class="form-field">
+                @Html.LabelFor(model => model.Username)
+                @Html.TextBoxFor(model => model.Username, new { autocomplete = "username", autofocus = "autofocus" })
+                @Html.ValidationMessageFor(model => model.Username)
+            </div>
+            <div class="form-field">
+                @Html.LabelFor(model => model.Password)
+                @Html.PasswordFor(model => model.Password, new { autocomplete = "current-password" })
+                @Html.ValidationMessageFor(model => model.Password)
+            </div>
+            <label class="checkbox-line">
+                @Html.CheckBoxFor(model => model.RememberMe)
+                <span>Ingat saya di perangkat ini</span>
+            </label>
+            <button class="button button-primary button-wide" type="submit">Masuk</button>
         }
-        <p class="demo-note">Demo: admin / Admin123!</p>
     </div>
 </section>

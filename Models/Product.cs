@@ -26,4 +26,8 @@ public sealed class Product
     [Required]
     [Column("stock")]
     public int stock { get; set; } 
+
+    [Required]
+    [Column("product_code")]
+    public string ProductCode { get; set; }  = string.Empty;
 }

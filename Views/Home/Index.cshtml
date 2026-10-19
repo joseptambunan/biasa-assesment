@@ -1,12 +1,72 @@
 @{
     ViewData["Title"] = "Dashboard";
+    var displayName = User.Identity?.Name ?? "Pengguna";
 }
-<section class="dashboard-header">
-    <p class="eyebrow">Dashboard</p>
-    <h1>Halo, @User.FindFirst("display_name")?.Value.</h1>
-    <p>Sesi Anda aktif dan halaman ini dilindungi oleh cookie authentication.</p>
+<header class="page-heading dashboard-heading">
+    <div>
+        <p class="eyebrow">Ringkasan</p>
+        <h1>Selamat datang, @displayName.</h1>
+        <p class="page-lead">Pantau katalog dan stok dari satu ruang kerja yang ringkas.</p>
+    </div>
+    <a class="button button-primary" href="/products">Lihat semua produk</a>
+</header>
+
+<section class="dashboard-grid" aria-label="Ringkasan produk">
+    <article class="dashboard-intro-card">
+        <p class="card-kicker">Fokus hari ini</p>
+        <h2>Pastikan stok yang berubah tercatat.</h2>
+        <p>Mulai dari daftar produk untuk membuka detail, memeriksa stok, atau memperbarui jumlah terbaru.</p>
+        <a class="text-link" href="/products">Buka daftar produk <span aria-hidden="true">→</span></a>
+    </article>
+    <article class="dashboard-note-card">
+        <p class="card-kicker">Status tampilan</p>
+        <strong>Data demo</strong>
+        <p>Daftar di halaman ini adalah contoh tampilan sampai data API dihubungkan.</p>
+    </article>
 </section>
-<section class="info-card">
-    <h2>API tersedia</h2>
-    <p>POST /api/auth/login, GET /api/auth/me, dan POST /api/auth/logout.</p>
+
+<section class="table-card" aria-labelledby="recent-products-title">
+    <div class="section-heading">
+        <div>
+            <p class="eyebrow">Produk terbaru</p>
+            <h2 id="recent-products-title">Daftar produk</h2>
+        </div>
+        <span class="status-note">Contoh data</span>
+    </div>
+    <div class="table-wrap">
+        <table class="data-table">
+            <thead>
+                <tr>
+                    <th scope="col">Kode barang</th>
+                    <th scope="col">Nama barang</th>
+                    <th scope="col">Kategori</th>
+                    <th scope="col">Stok</th>
+                    <th scope="col"><span class="sr-only">Aksi</span></th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td><span class="code-label">PRD-001</span></td>
+                    <td><strong>Kopi Arabika 250 g</strong></td>
+                    <td>Minuman</td>
+                    <td><span class="stock-value">24</span></td>
+                    <td><a class="table-link" href="/products/1">Lihat detail</a></td>
+                </tr>
+                <tr>
+                    <td><span class="code-label">PRD-002</span></td>
+                    <td><strong>Teh Hitam 100 g</strong></td>
+                    <td>Minuman</td>
+                    <td><span class="stock-value">12</span></td>
+                    <td><a class="table-link" href="/products/2">Lihat detail</a></td>
+                </tr>
+                <tr>
+                    <td><span class="code-label">PRD-003</span></td>
+                    <td><strong>Gula Aren 500 g</strong></td>
+                    <td>Bahan baku</td>
+                    <td><span class="stock-value stock-low">6</span></td>
+                    <td><a class="table-link" href="/products/3">Lihat detail</a></td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
 </section>

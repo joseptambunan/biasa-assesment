@@ -12,4 +12,5 @@ dotnet tool run dotnet-ef migrations add AddKategoriTable
 dotnet tool run dotnet-ef migrations add AddUserGroupTable
 dotnet tool run dotnet-ef migrations add AddProductTable
 dotnet tool run dotnet-ef migrations add AddProductStockTable
+dotnet tool run dotnet-ef migrations add AlterProductAddKodeBarang
 dotnet tool run dotnet-ef database update 

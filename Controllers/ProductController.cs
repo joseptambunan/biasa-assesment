@@ -29,6 +29,15 @@ public sealed class ProductController : Controller
     [AllowAnonymous]
     public IActionResult Error() => Problem();
 
+    [HttpGet("/products")]
+    public IActionResult ProductListPage() => View("Index");
+
+    [HttpGet("/products/{productId:int}")]
+    public IActionResult ProductDetailsPage(int productId) => View("Details", productId);
+
+    [HttpGet("/categories")]
+    public IActionResult CategoriesPage() => View("Categories");
+
     [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
     [HttpPost("kategori/submit")]
     public IActionResult SubmitKategori([FromBody] ApiKategoriRequest? request)
