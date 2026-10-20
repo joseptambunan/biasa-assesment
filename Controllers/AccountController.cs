@@ -11,10 +11,12 @@ namespace AspNetMvcLogin.Controllers;
 public sealed class AccountController : Controller
 {
     private readonly DemoCredentialValidator _credentialValidator;
+    private readonly IWebHostEnvironment _environment;
 
-    public AccountController(DemoCredentialValidator credentialValidator)
+    public AccountController(DemoCredentialValidator credentialValidator, IWebHostEnvironment environment)
     {
         _credentialValidator = credentialValidator;
+        _environment = environment;
     }
 
     [AllowAnonymous]
@@ -25,7 +27,8 @@ public sealed class AccountController : Controller
         {
             return RedirectToAction("Index", "Home");
         }
-        return View(new LoginViewModel { ReturnUrl = returnUrl });
+        var filePath = Path.Combine(_environment.WebRootPath, "index.html");
+        return PhysicalFile(filePath, "text/html; charset=utf-8");
     }
 
     [AllowAnonymous]
@@ -54,7 +57,7 @@ public sealed class AccountController : Controller
     }
 
     [Authorize]
-    [HttpPost]
+    [HttpGet]
     [ValidateAntiForgeryToken]
     public async Task<IActionResult> Logout()
     {

@@ -14,12 +14,16 @@ function login() {
 
     request.done(function(data){
         if ( data.accessToken != "" ){
-            window.location.href = "index.html";
+            window.location.href = "/";
             localStorage.setItem("token",data.accessToken);
         }else{
             alert(data.message);
         }
     })
+
+    request.fail(function(data){
+       alert("Invalid Login");
+    });
 }
 
 function getProduct(){
@@ -51,7 +55,11 @@ function getProduct(){
                html += "</tr>";
             });
             $("#listproduct").html(html);
-        })    
+        });
+
+        request.fail(function(){
+           window.location.href = "/login";
+        });
 
     }else{
         window.location.href = "login.html";
