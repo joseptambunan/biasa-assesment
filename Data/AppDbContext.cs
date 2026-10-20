@@ -41,7 +41,7 @@ public sealed class AppDbContext : DbContext
             .HasIndex(x => x.Kategori_id);
 
         modelBuilder.Entity<Product>()
-            .HasOne<Kategori>()
+            .HasOne<Kategori>(x => x.Kategori)
             .WithMany()
             .HasForeignKey(x => x.Kategori_id);
 
@@ -49,8 +49,8 @@ public sealed class AppDbContext : DbContext
             .HasIndex(x => x.ProductId);
 
         modelBuilder.Entity<ProductStocks>()
-            .HasOne<Product>()
-            .WithMany()
+            .HasOne<Product>(x => x.Product)
+            .WithMany(x => x.ProductStocks)
             .HasForeignKey(x => x.ProductId);
 
         modelBuilder.Entity<User>().HasData(

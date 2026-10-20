@@ -45,4 +45,46 @@ public sealed class HomeController : Controller
 
         return PhysicalFile(filePath, "text/html; charset=utf-8");
     }
+
+    [HttpGet]
+    [Route("kategori")]
+    public IActionResult Kategori()
+    {
+        var filePath = Path.Combine(_environment.WebRootPath, "categories.html");
+
+        if (!System.IO.File.Exists(filePath))
+        {
+            return NotFound("File wwwroot/index.html tidak ditemukan.");
+        }
+
+        return PhysicalFile(filePath, "text/html; charset=utf-8");
+    }
+
+    [HttpGet]
+    [Route("product")]
+    public IActionResult Product()
+    {
+        var filePath = Path.Combine(_environment.WebRootPath, "products.html");
+
+        if (!System.IO.File.Exists(filePath))
+        {
+            return NotFound("File wwwroot/index.html tidak ditemukan.");
+        }
+
+        return PhysicalFile(filePath, "text/html; charset=utf-8");
+    }
+
+    [HttpGet]
+    [Route("product/{product_code}")]
+    public IActionResult ProductDetail(string product_code)
+    {
+        var filePath = Path.Combine(_environment.WebRootPath, "product-detail.html");
+
+        if (!System.IO.File.Exists(filePath))
+        {
+            return NotFound("File wwwroot/index.html tidak ditemukan.");
+        }
+
+        return PhysicalFile(filePath, "text/html; charset=utf-8");
+    }
 }

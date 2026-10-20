@@ -9,14 +9,110 @@
 <body>
     <a class="skip-link" href="#main-content">Lewati ke konten</a>
     <div class="app-shell">
-        <aside class="sidebar" aria-label="Navigasi utama"><div class="sidebar-brand-block"><a class="sidebar-brand" href="index.html"><span class="brand-mark" aria-hidden="true">AD</span><span>Access Desk</span></a><p class="sidebar-caption">Ruang kerja persediaan</p></div><nav class="sidebar-nav"><a class="nav-item" href="index.html"><span class="nav-index" aria-hidden="true">01</span><span>Home</span></a><a class="nav-item" href="categories.html"><span class="nav-index" aria-hidden="true">02</span><span>Kategori</span></a><a class="nav-item is-active" aria-current="page" href="products.html"><span class="nav-index" aria-hidden="true">03</span><span>Produk</span></a></nav><div class="sidebar-footer"><div class="account-chip"><span class="account-mark" aria-hidden="true">A</span><span><strong>admin</strong><small>Sesi aktif</small></span></div><a class="nav-item nav-button" href="login.html"><span class="nav-index" aria-hidden="true">04</span><span>Logout</span></a></div></aside>
+        <aside class="sidebar" aria-label="Navigasi utama">
+            <div class="sidebar-brand-block">
+                <a class="sidebar-brand" href="/"><span class="brand-mark" aria-hidden="true">AD</span><span>Access Desk</span></a>
+                <p class="sidebar-caption">Ruang kerja persediaan</p>
+            </div>
+            <nav class="sidebar-nav">
+                <a class="nav-item is-active" aria-current="page" href="index.html"><span class="nav-index" aria-hidden="true">01</span><span>Home</span></a>
+                <a class="nav-item" href="/kategori"><span class="nav-index" aria-hidden="true">02</span><span>Kategori</span></a>
+                <a class="nav-item" href="/product"><span class="nav-index" aria-hidden="true">03</span><span>Produk</span></a>
+            </nav>
+            <div class="sidebar-footer">
+                <div class="account-chip"><span class="account-mark" aria-hidden="true">A</span><span><strong>admin</strong><small>Sesi aktif</small></span></div>
+                <a class="nav-item nav-button" href="logout"><span class="nav-index" aria-hidden="true">04</span><span>Logout</span></a>
+            </div>
+        </aside>
         <div class="app-main"><header class="app-topbar"><span class="topbar-label">Inventory workspace</span><span class="topbar-user">admin</span></header><main id="main-content" class="page-content app-content">
-            <div class="detail-back-row"><a class="back-link" href="products.html">Kembali ke semua produk</a></div>
-            <header class="page-heading detail-heading"><div><p class="eyebrow">Detail produk / PRD-001</p><h1>Kopi Arabika 250 g</h1><p class="page-lead">Informasi umum dan catatan perubahan stok produk.</p></div><button class="button button-primary" type="button" data-open-stock-modal>Update stok</button></header>
-            <div class="detail-grid"><section class="detail-card" aria-labelledby="product-summary-title"><div class="section-heading"><div><p class="eyebrow">Ringkasan</p><h2 id="product-summary-title">Data umum produk</h2></div><span class="status-note">Aktif</span></div><table class="summary-table"><tbody><tr><th scope="row">Kode barang</th><td>PRD-001</td></tr><tr><th scope="row">Nama barang</th><td>Kopi Arabika 250 g</td></tr><tr><th scope="row">Kategori</th><td>Minuman</td></tr><tr><th scope="row">Stok</th><td><strong id="current-stock">24</strong> unit</td></tr></tbody></table></section>
-                <section class="detail-card" aria-labelledby="stock-history-title"><div class="section-heading"><div><p class="eyebrow">Pergerakan</p><h2 id="stock-history-title">Data stok barang</h2></div><span class="table-count">3 catatan</span></div><div class="table-wrap"><table class="data-table compact-table"><thead><tr><th scope="col">Tanggal</th><th scope="col">Perubahan</th><th scope="col">Stok akhir</th><th scope="col">Catatan</th></tr></thead><tbody><tr><td>19 Okt 2026</td><td><span class="change-pill change-in">+12</span></td><td>24</td><td>Penerimaan barang</td></tr><tr><td>15 Okt 2026</td><td><span class="change-pill change-out">-4</span></td><td>12</td><td>Penjualan</td></tr><tr><td>10 Okt 2026</td><td><span class="change-pill change-in">+16</span></td><td>16</td><td>Stok awal</td></tr></tbody></table></div></section></div>
-            <dialog id="stock-modal" class="stock-dialog" aria-labelledby="stock-modal-title"><div class="dialog-panel"><div class="dialog-header"><div><p class="eyebrow">Perbarui produk</p><h2 id="stock-modal-title">Update stok</h2></div><button class="icon-button" type="button" data-close-stock-modal aria-label="Tutup modal">&times;</button></div><p class="dialog-lead">Masukkan jumlah stok terbaru untuk PRD-001.</p><form id="stock-form" class="stock-form"><div class="form-field"><label for="latest-stock">Stok terbaru</label><input id="latest-stock" name="stock" type="number" min="0" value="24" required></div><div class="dialog-actions"><button class="button button-secondary" type="button" data-close-stock-modal>Batal</button><button class="button button-primary" type="submit">Simpan stok</button></div><p id="stock-form-status" class="form-status" role="status" aria-live="polite"></p></form></div></dialog>
-        </main></div>
+            <div class="detail-back-row"><a class="back-link" href="/product">Kembali ke semua produk</a></div>
+            <header class="page-heading detail-heading">
+                <div>
+                    <p class="eyebrow">Detail produk / <span id="product-code"></span></p>
+                    <h1 id="product-title">Kopi Arabika 250 g</h1>
+                    <p class="page-lead">Informasi umum dan catatan perubahan stok produk.</p>
+                </div>
+                <button class="button button-primary" type="button" data-open-stock-modal>Update stok</button>
+            </header>
+            <div class="detail-grid">
+                <section class="detail-card" aria-labelledby="product-summary-title">
+                    <div class="section-heading"><div><p class="eyebrow">Ringkasan</p>
+                        <h2 id="product-summary-title">Data umum produk</h2>
+                    </div>
+                    <span class="status-note">Aktif</span>
+                    </div>
+                    <table class="summary-table">
+                        <tbody>
+                            <tr>
+                                <th scope="row">Kode barang</th>
+                                <td><span id="product-code-2">PRD-001</span></td>
+                            </tr>
+                            <tr>
+                                <th scope="row">Nama barang</th>
+                                <td><span id="product-title-2">Kopi Arabika 250 g</span></td>
+                            </tr>
+                            <tr>
+                                <th scope="row">Kategori</th>
+                                <td><span id="product-categori">Minuman</span></td>
+                            </tr>
+                            <tr>
+                                <th scope="row">Stok</th>
+                                <td><strong id="current-stock">24</strong> unit</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </section>
+                <section class="detail-card" aria-labelledby="stock-history-title">
+                    <div class="section-heading">
+                        <div><p class="eyebrow">Pergerakan</p>
+                            <h2 id="stock-history-title">Data stok barang</h2>
+                        </div>
+                        <span class="table-count">3 catatan</span>
+                    </div>
+                    <div class="table-wrap">
+                        <table class="data-table compact-table">
+                            <thead>
+                                <tr>
+                                    <th scope="col">Tanggal</th>
+                                    <th scope="col">Stok</th>
+                                </tr>
+                            </thead>
+                            <tbody id="stock">
+                                <tr>
+                                    <td>Penerimaan barang</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </section>
+            </div>
+            <dialog id="stock-modal" class="stock-dialog" aria-labelledby="stock-modal-title">
+                <div id="stock-form">
+                    <div class="dialog-panel">
+                        <div class="dialog-header">
+                            <div><p class="eyebrow">Perbarui produk</p>
+                                <h2 id="stock-modal-title">Update stok</h2>
+                            </div>
+                            <button class="icon-button" type="button" data-close-stock-modal aria-label="Tutup modal">&times;</button>
+                        </div>
+                        <p class="dialog-lead">Masukkan jumlah stok terbaru untuk <span id="product-code-3"></span></p>
+                        
+                        <div class="form-field">
+                            <label for="latest-stock">Stok terbaru</label>
+                            <input id="product_id" type="hidden">
+                            <input id="latest-stock" name="stock" type="number" min="0" value="24" required>
+                        </div>
+                        <div class="dialog-actions">
+                            <button class="button button-secondary" type="button" data-close-stock-modal>Batal</button>
+                            <button class="button button-primary" type="button" onclick="submitStock()">Simpan stok</button>
+                        </div>
+                        <p id="stock-form-status" class="form-status" role="status" aria-live="polite"></p>
+                    </div>
+                </div>
+               
+                </dialog>
+            </main>
+        </div>
     </div>
     <script>
         (() => {
@@ -34,6 +130,14 @@
                 modal.close();
             });
         })();
+    </script>
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+    <script src="/js/auth.js"></script>
+    <script type="text/javascript">
+        $( document ).ready(function() {
+            var segments = window.location.pathname.split('/');
+            getProductDetail(segments[2]);
+        });
     </script>
 </body>
 </html>

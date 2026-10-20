@@ -84,6 +84,7 @@ public sealed class MasterProductService
             const int pageSize = 1;
             var product = _dbContext.Products
             .AsNoTracking()
+            .Include(x => x.Kategori)
             .OrderBy(x => x.Name)
             .Skip((pageNumber - 1) * pageSize)
             .Take(pageSize)
@@ -97,11 +98,13 @@ public sealed class MasterProductService
         }
     }
 
-    public Product GetProductById(int product_id){
+    public Product GetProductById(string product_code){
         try {
             var product = _dbContext.Products
             .AsNoTracking()
-            .FirstOrDefault(x => x.Id == product_id);
+            .Include(x => x.Kategori)
+            .Include(x => x.ProductStocks)
+            .FirstOrDefault(x => x.ProductCode == product_code);
 
             return product;
 

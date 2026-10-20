@@ -30,4 +30,7 @@ public sealed class Product
     [Required]
     [Column("product_code")]
     public string ProductCode { get; set; }  = string.Empty;
+
+    public Kategori Kategori { get; set; } = null!;
+    public ICollection<ProductStocks> ProductStocks { get; set; } = new List<ProductStocks>();
 }

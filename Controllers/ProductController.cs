@@ -102,10 +102,10 @@ public sealed class ProductController : Controller
     }
 
     [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
-    [HttpGet("{product_id:int}")]
-    public IActionResult GetProductById(int product_id)
+    [HttpGet("{product_code}")]
+    public IActionResult GetProductById(string product_code)
     {
-        var product = _masterProductService.GetProductById(product_id);
+        var product = _masterProductService.GetProductById(product_code);
         if ( product is null ){
             return NotFound(new{ 
                 message = "Data tidak ditemukan" 

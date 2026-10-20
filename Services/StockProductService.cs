@@ -18,7 +18,8 @@ public sealed class StockProductService
             var requestStock = new ProductStocks
             {
                 ProductId = request.product_id,
-                stock = request.stock
+                stock = request.stock,
+                CreatedAt = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss")
             };
         
             _dbContext.ProductStocks.Add(requestStock);
