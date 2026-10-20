@@ -26,7 +26,7 @@ function login() {
     });
 }
 
-function getProduct(){
+function getProduct(page = 1){
     if (localStorage.getItem("token") !== null) {
         var request = $.ajax({
             url: '/api/product/all',
@@ -34,7 +34,7 @@ function getProduct(){
             contentType: 'application/json; charset=utf-8',
             dataType: 'json',
             data: {
-                page : 1
+                page : page
             },
             headers: {
                 "Content-Type": "application/x-www-form-urlencoded",
@@ -55,6 +55,14 @@ function getProduct(){
                html += "</tr>";
             });
             $("#listproduct").html(html);
+            if ( page == 1){
+                pageprev = page;
+            }else{
+                pageprev = page - 1 ;
+            }
+
+            $("#btn-prev").attr("onclick","getProduct(" + pageprev + ")");
+            $("#btn-next").attr("onclick","getProduct(" + (page + 1) +")");
         });
 
         request.fail(function(){
