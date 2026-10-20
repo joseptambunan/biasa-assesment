@@ -58,13 +58,13 @@ public sealed class AppDbContext : DbContext
             {
                 Id = 1,
                 Username = "admin",
-                Password = "AQAAAAIAAYagAAAAEFLyLm0eBZgPer+yB+ia8I9h8q0QlxyQcyC9Jh7YBWdsseAeNgPuOaTGn63PqXW+pg=="
+                PasswordHash = "AQAAAAIAAYagAAAAEFLyLm0eBZgPer+yB+ia8I9h8q0QlxyQcyC9Jh7YBWdsseAeNgPuOaTGn63PqXW+pg=="
             },
             new User
             {
                 Id = 2,
                 Username = "staff",
-                Password = "AQAAAAIAAYagAAAAEEPl2lZNznP9M4UUVUsEbXMG7SLBkGIBtEium79OYdhEkxJusF5EvLsdj/Y+J4GFYw=="
+                PasswordHash = "AQAAAAIAAYagAAAAEEPl2lZNznP9M4UUVUsEbXMG7SLBkGIBtEium79OYdhEkxJusF5EvLsdj/Y+J4GFYw=="
             }
         );
     }
