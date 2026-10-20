@@ -92,12 +92,18 @@ function getKategori(){
 
         request.done(function(data){
             var html = "";
+            var htmlOption = "";
             $.each(data.data, function(i, item) {
                html += "<tr>";
                html += "<td>" + item.name + "</td>";
                html += "</tr>";
+
+               htmlOption += "<option value='" + item.id +"'>" + item.name +"</option>";
             });
             $("#listkategori").html(html);
+            $("#product-category").html(htmlOption);
+
+            $.each(data.da)
         });
 
         request.fail(function(){
@@ -179,4 +185,31 @@ function submitStock(){
             window.location.reload();
         });
     }
+}
+
+
+function submitProduct(){
+    $("#loading-bar").show();
+    var requestProduct = {
+        name : $("#product-name").val(),
+        price : $("#product-price").val(),
+        stock : $("#initial-stock").val(),
+        kategori_id : $("#product-category").val()
+    };
+
+    var request = $.ajax({
+        url: '/api/product/submit',
+        type: 'POST',
+        contentType: 'application/json; charset=utf-8',
+        dataType: 'json',
+        data: JSON.stringify(requestProduct),
+        headers: {
+            "Authorization": "Bearer " + localStorage.getItem("token")
+        },
+    });
+
+    request.done(function(data){
+        alert("Berhasil");
+        window.location.href = "/product";
+    });
 }

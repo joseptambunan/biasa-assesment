@@ -136,6 +136,28 @@ button { min-height: 44px; }
 
 .form-field { display: grid; gap: 7px; }
 
+.product-form { display: grid; gap: 18px; max-width: 720px; padding: 0 26px 28px; }
+.product-form input,
+.product-form select {
+    width: 100%;
+    min-height: 46px;
+    padding: 10px 12px;
+    color: var(--ink);
+    background: #fff;
+    border: 1px solid #bdcbd5;
+    border-radius: 6px;
+}
+.product-form input:focus,
+.product-form select:focus { outline: 3px solid #f3ae8a; outline-offset: 2px; }
+.product-form select { cursor: pointer; }
+.form-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 18px; }
+.input-prefix { position: relative; }
+.input-prefix span { position: absolute; top: 50%; left: 12px; color: var(--muted); font-size: .86rem; transform: translateY(-50%); }
+.input-prefix input { padding-left: 34px; }
+.form-help { color: var(--muted); font-size: .78rem; }
+.form-actions { display: flex; justify-content: flex-end; gap: 10px; padding-top: 8px; border-top: 1px solid var(--line); }
+.product-form-card { overflow: hidden; }
+
 .form-field label,
 .auth-card label { font-size: .86rem; font-weight: 750; }
 
@@ -493,11 +515,15 @@ a:focus-visible {
     .dashboard-grid,
     .detail-grid,
     .category-grid { grid-template-columns: 1fr; }
+    .form-grid { grid-template-columns: 1fr; }
     .section-heading { align-items: start; flex-direction: column; padding: 20px 18px 15px; }
     .data-table th,
     .data-table td { padding-right: 18px; padding-left: 18px; }
     .detail-card .section-heading { flex-direction: row; align-items: end; }
     .detail-heading .button { width: 100%; }
+    .product-form { padding-right: 18px; padding-left: 18px; }
+    .form-actions { flex-direction: column-reverse; }
+    .form-actions .button { width: 100%; }
     .dialog-panel { padding: 22px; }
     .dialog-actions { flex-direction: column-reverse; }
     .dialog-actions .button { width: 100%; }

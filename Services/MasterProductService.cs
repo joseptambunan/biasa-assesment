@@ -7,10 +7,12 @@ namespace AspNetMvcLogin.Services;
 public sealed class MasterProductService
 {
 	private readonly AppDbContext _dbContext;
+    private readonly StockProductService _stockProductService;
 
-	public MasterProductService(AppDbContext dbContext)
+	public MasterProductService(AppDbContext dbContext,StockProductService stockProductService)
     {
         _dbContext = dbContext;
+        _stockProductService = stockProductService;
     }
 
 	public string MasterKategori(ApiKategoriRequest? request){
@@ -64,12 +66,20 @@ public sealed class MasterProductService
                 Name = request.Name,
                 Kategori_id = request.kategori_id,
                 Price = request.price,
-                ProductCode = uniqcode
+                ProductCode = uniqcode,
+                stock = request.stock
             };
 
             
             _dbContext.Products.Add(requestProduct);
             _dbContext.SaveChanges();
+
+            var updatestock =  new ApiUpdateStock {
+                product_id = requestProduct.Id,
+                stock = request.stock
+            };
+
+            var stockawal = _stockProductService.UpdateStock(updatestock);
 
             return requestProduct.Name;
         }catch (Exception  ex){
@@ -81,7 +91,7 @@ public sealed class MasterProductService
     public List<Product> GetProductAll(int pageNumber = 1){
         try {
 
-            const int pageSize = 1;
+            const int pageSize = 10;
             var product = _dbContext.Products
             .AsNoTracking()
             .Include(x => x.Kategori)
