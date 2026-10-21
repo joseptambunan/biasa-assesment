@@ -15,7 +15,7 @@
                 <p class="sidebar-caption">Ruang kerja persediaan</p>
             </div>
             <nav class="sidebar-nav">
-                <a class="nav-item is-active" aria-current="page" href="index.html"><span class="nav-index" aria-hidden="true">01</span><span>Home</span></a>
+                <a class="nav-item is-active" aria-current="page" href="/"><span class="nav-index" aria-hidden="true">01</span><span>Home</span></a>
                 <a class="nav-item" href="/kategori"><span class="nav-index" aria-hidden="true">02</span><span>Kategori</span></a>
                 <a class="nav-item" href="/product"><span class="nav-index" aria-hidden="true">03</span><span>Produk</span></a>
             </nav>
@@ -26,6 +26,31 @@
         </aside>
         <div class="app-main"><header class="app-topbar"><span class="topbar-label">Inventory workspace</span><span class="topbar-user">admin</span></header><main id="main-content" class="page-content app-content">
             <header class="page-heading"><div><p class="eyebrow">Katalog</p><h1>Semua produk</h1><p class="page-lead">Pilih produk untuk melihat informasi umum dan riwayat stok.</p></div><a class="button button-primary" href="/product/add">Tambah produk</a></header>
+            <section class="table-card" aria-labelledby="all-products-title">
+                <div class="section-heading"><div><p class="eyebrow">Cari Produk</p><h2 id="all-products-title"> </h2></div><span class="table-count">3 produk</span></div><div class="table-wrap">
+                    <table class="data-table">                   
+                        <tr>
+                            <td scope="col">Kategori</td>
+                            <td scope="col">
+                                <select id="product-category" name="kategori_id" required>
+                                    <option value="" selected disabled>Pilih kategori</option>
+                                </select>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td scope="col">Nama Barang</td>
+                            <td scope="col"><input type="text" id="search-name" /></td>
+                        </tr>
+                        <tr>
+                            <td scope="col">&nbsp;</td>
+                            <td scope="col">
+                                <h2 style="display: none;" id="loading-bar">Loading</h2>
+                                <button type="button" onclick="searchItem()">Cari</button>
+                            </td>
+                        </tr>
+                    </table>
+                    </div>
+            </section>
             <section class="table-card" aria-labelledby="all-products-title">
                 <div class="section-heading"><div><p class="eyebrow">Daftar lengkap</p><h2 id="all-products-title">Produk tersedia</h2></div><span class="table-count">3 produk</span></div><div class="table-wrap">
                     <table class="data-table">
@@ -59,5 +84,6 @@
 <script type="text/javascript">
     $( document ).ready(function() {
         getProduct();
+        getKategori();
     });
 </script>

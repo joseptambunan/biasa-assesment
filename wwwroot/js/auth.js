@@ -213,3 +213,46 @@ function submitProduct(){
         window.location.href = "/product";
     });
 }
+
+
+function searchItem(){
+    $("#loading-bar").show();
+    var requestProduct = {
+        name : $("#search-name").val(),
+        kategori : $("#product-category").val(),
+        page : 1
+    };
+
+    var request = $.ajax({
+        url: '/api/product/search',
+        type: 'POST',
+        contentType: 'application/json; charset=utf-8',
+        dataType: 'json',
+        data: JSON.stringify(requestProduct),
+        headers: {
+            "Authorization": "Bearer " + localStorage.getItem("token")
+        },
+    });
+
+    request.done(function(data){
+        $.each(data.data, function(i, item) {
+           html += "<tr>";
+           html += "<td>" + item.productCode + "</td>";
+           html += "<td>" + item.name + "</td>";
+           html += "<td>" + item.kategori.name + "</td>";
+           html += "<td>" + item.price + "</td>";
+           html += "<td>" + item.stock + "</td>";
+           html += "<td><a href='product/" + item.productCode+ "'>Detail</a></td>";
+           html += "</tr>";
+        });
+        $("#listproduct").html(html);
+        if ( page == 1){
+            pageprev = page;
+        }else{
+            pageprev = page - 1 ;
+        }
+
+        $("#btn-prev").attr("onclick","getProduct(" + pageprev + ")");
+        $("#btn-next").attr("onclick","getProduct(" + (page + 1) +")");
+    });
+}

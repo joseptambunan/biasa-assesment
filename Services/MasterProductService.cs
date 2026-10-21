@@ -151,9 +151,13 @@ public sealed class MasterProductService
     public List<Product> SearchProduct(int? kategori_id, string product_name,int pageNumber = 1){
         try {
             const int pageSize = 10;
+            if ( pageNumber <= 1){
+                pageNumber = 1;
+            }
             if ( kategori_id.HasValue){
                 var product = _dbContext.Products
                 .AsNoTracking()
+                .Include(x => x.Kategori)
                 .Where(x =>
                     x.Kategori_id == kategori_id.Value ||
                     EF.Functions.Like(x.Name, $"%{product_name}%")
@@ -166,6 +170,7 @@ public sealed class MasterProductService
             }else{
                 var product = _dbContext.Products
                 .AsNoTracking()
+                .Include(x => x.Kategori)
                 .Where(x =>
                     EF.Functions.Like(x.Name, $"%{product_name}%")
                 )

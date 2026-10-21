@@ -141,7 +141,7 @@ public sealed class ProductController : Controller
 
     
     [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
-    [HttpGet("search")]
+    [HttpPost("search")]
     public IActionResult SearchProduct([FromBody] ApiSearchRequest? request)
     {
 
@@ -149,7 +149,7 @@ public sealed class ProductController : Controller
         return Ok(new
         {
             code = 200,
-            message = "Product berhasil disimpan.",
+            message = "Product berhasil dicari.",
             data = product
         });
     }
